@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Web.Mvc;
 using System.Web.Optimization;
-using System.Web.Routing;
 
 namespace BinbinBundleConfig
 {
@@ -33,10 +31,15 @@ namespace BinbinBundleConfig
             bundles.Add(bundle);
         }
 
+        public static void AddScriptBundleBootstrap(this BundleCollection bundles, List<string> bowerPlugins = null)
+        {
+            Bundle bundle = new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js");
+            bundles.Add(bundle);
+        }
+
         public static void AddStyleBundleBootstrap(this BundleCollection bundles, List<string> bowerPlugins = null)
         {
-            Bundle bundle = new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css")
-                                                                  .Include("~/Content/bootstrap-theme.css");
+            Bundle bundle = new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css").Include("~/Content/bootstrap-theme.css");
             if (null != bowerPlugins && bowerPlugins.Count > 0)
             {
                 if (bowerPlugins.Contains("angular-loading-bar"))
@@ -45,14 +48,6 @@ namespace BinbinBundleConfig
                 }
             }
             bundles.Add(bundle);
-        }
-    }
-
-    public static class RouteHelper
-    {
-        public static void AddRouteAngular(this RouteCollection routes)
-        {
-            routes.IgnoreRoute("fonts/{*pathInfo}");
         }
     }
 }
